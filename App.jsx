@@ -1,32 +1,41 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import Welcome from './pages/Welcome.jsx';
+
+import RootLayout from './pages/Root.jsx';
+import Home from './pages/Home.jsx';
 import Todo from './pages/Todo';
 import Insert from './pages/Insert.jsx';
+import Calendar from './pages/Calendar.jsx';
 
-import DarkModeToggle from './components/DarkModeToggle.jsx';
-import Calendar from './components/Calendar.jsx';
 
-import TodosContextProvider from './store/todoContext';  // TodosContextProvider를 가져옴
+import TodosContextProvider from './store/todoContext';
 import DarkModeProvider from './store/darkModeContext.jsx';
+import CalendarProvider from './store/calendarContext';
+
 
 const router = createBrowserRouter([
-  { path: '/', element: <Welcome /> },
-  { path: '/todo', element: <Todo /> },
-  { path: '/insert', element: <Insert /> },
+  {
+    path: '/',
+    element: <RootLayout />,
+    // errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Home /> }, //path: '/'
+      { path: '/todo', element: <Todo /> },
+      { path: '/insert', element: <Insert /> },
+      { path: '/calendar', element: <Calendar /> },
+    ],
+  },
 ]);
 
 function App() {
   return (
-    <>
-      <DarkModeProvider>
-        <TodosContextProvider>
-          <DarkModeToggle />
+    <DarkModeProvider>
+      <TodosContextProvider>
+        <CalendarProvider>
           <RouterProvider router={router} />
-          {/* <Calendar /> */}
-        </TodosContextProvider>
-      </DarkModeProvider>
-    </>
+        </CalendarProvider>
+      </TodosContextProvider>
+    </DarkModeProvider>
   );
 }
 

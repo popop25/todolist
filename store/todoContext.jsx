@@ -9,7 +9,7 @@ export const TodosContext = createContext({
 
 export default function TodosContextProvider({ children }) {
     const [datalist, setDatalist] = useState(() => {
-        // 로컬 스토리지 데이터를 가져오기
+        // 로컬 스토리지 데이터 가져오기
         const savedTodos = localStorage.getItem('datalist');
         return savedTodos ? JSON.parse(savedTodos) : [];
     });
@@ -54,11 +54,3 @@ export default function TodosContextProvider({ children }) {
         </TodosContext.Provider>
     );
 }
-
-
-
-// const [datalist, setDatalist] = useState([
-//     { id: 1, contents: 'Do the dishes', yesno: 'no' },
-//     { id: 2, contents: 'Take out the trash', yesno: 'yes' },
-//     { id: 3, contents: 'Mow the lawn', yesno: 'no' },
-// ]);

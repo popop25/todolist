@@ -1,0 +1,95 @@
+.calendar {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    /* position: fixed; 화면에 고정
+    top: 200px; 상단에서 20px
+    right: 20px; 오른쪽에서 20px*/
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.header .col-start .text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.header .col-end {
+    display: flex;
+    gap: 10px;
+}
+
+.days {
+    display: flex;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.days .col {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cell:hover {
+    background-color: #f0f0f0;
+}
+
+.cell.disabled {
+    background-color: #f9f9f9;
+    color: #ccc;
+    cursor: default;
+}
+
+.cell.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.cell .text.not-valid {
+    color: #ccc;
+}
+
+.cell.valid {
+    color: #000;
+}
+
+/* 마지막 셀의 오른쪽 테두리 제거 */
+.row .cell:last-child {
+    border-right: none;
+}

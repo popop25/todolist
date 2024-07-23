@@ -12,11 +12,12 @@ export default function Todo() {
             <Link to="/insert">
                 <button type="button">추가</button>
             </Link>
-            <hr />
+            <Link to="/calendar">
+                <button type="button">캘린더</button>
+            </Link>
             <table>
                 <thead>
                     <tr>
-                        {/* <th>ID</th> */}
                         <th>내용</th>
                         <th>완료여부</th>
                         <th>수정처리</th>
@@ -26,7 +27,6 @@ export default function Todo() {
                 <tbody>
                     {datalist.map((item, index) => (
                         <tr key={index}>
-                            {/* <td>{item.id}</td> */}
                             <td>{item.contents}</td>
                             <td>{item.yesno}</td>
                             <td>
