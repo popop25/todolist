@@ -14,8 +14,8 @@ export default function TodosContextProvider({ children }) {
         return savedTodos ? JSON.parse(savedTodos) : [];
     });
 
-    useEffect(() => {
-        localStorage.setItem('datalist', JSON.stringify(datalist));
+    useEffect(() => { //datalist 변경 내용
+        localStorage.setItem('datalist', JSON.stringify(datalist)); //로컬스토리지에 저장
         console.log('datalist변경')
     }, [datalist]);
 

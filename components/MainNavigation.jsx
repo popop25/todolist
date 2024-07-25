@@ -31,6 +31,14 @@ function MainNavigation() {
                             Calendar
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink
+                            to="/board"
+                            className={({ isActive }) => isActive ? classes.active : undefined}
+                        >
+                            Board
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>

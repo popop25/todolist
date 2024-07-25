@@ -12,9 +12,7 @@ export default function Todo() {
             <Link to="/insert">
                 <button type="button">추가</button>
             </Link>
-            <Link to="/calendar">
-                <button type="button">캘린더</button>
-            </Link>
+
             <table>
                 <thead>
                     <tr>
