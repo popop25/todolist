@@ -10,7 +10,7 @@ export default function Board() {
             <div>
                 <h1>Board</h1>
                 <Link to="/addpost">
-                    <button>게시글 추가</button>
+                    <button>게시글 작성</button>
                 </Link>
                 <ul>
                     {posts.map(post => (

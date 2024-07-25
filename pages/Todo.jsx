@@ -17,6 +17,7 @@ export default function Todo() {
                 <thead>
                     <tr>
                         <th>내용</th>
+                        <th>마감일</th>
                         <th>완료여부</th>
                         <th>수정처리</th>
                         <th>삭제</th>
@@ -26,6 +27,7 @@ export default function Todo() {
                     {datalist.map((item, index) => (
                         <tr key={index}>
                             <td>{item.contents}</td>
+                            <td>{item.deadline}</td>
                             <td>{item.yesno}</td>
                             <td>
                                 {item.yesno === 'yes' ? (

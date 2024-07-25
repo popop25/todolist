@@ -9,12 +9,14 @@ export default function Insert() {
     const navigate = useNavigate();
 
     const contents = useRef();
+    const deadline = useRef();
     const yesno = useRef();
 
     function handleSubmit(event) {
         event.preventDefault();  // 폼 제출 막음.
         const todo = {
             contents: contents.current.value,
+            deadline: deadline.current.value,
             yesno: yesno.current.value,
         };
         handleAdd(todo);
@@ -34,11 +36,15 @@ export default function Insert() {
                         <tbody>
                             <tr>
                                 <td><label htmlFor="contents">할 일(내용) </label></td>
-                                <td><input ref={contents} type="text" name="contents" id='contents' required/></td>
+                                <td><input ref={contents} type="text" name="contents" id='contents' required /></td>
+                            </tr>
+                            <tr>
+                                <td><label htmlFor="deadline">Deadline</label></td>
+                                <td><input ref={deadline} type="date" name="deadline" id="deadline" required /></td>
                             </tr>
                             <tr>
                                 <td><label htmlFor="contents">완료여부</label></td>
-                                <td><input ref={yesno} type="text" name="yesno" id='yesno' required/></td>
+                                <td><input ref={yesno} type="text" name="yesno" id='yesno' required /></td>
                             </tr>
                         </tbody>
                     </table>

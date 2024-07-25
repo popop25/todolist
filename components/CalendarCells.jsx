@@ -1,5 +1,7 @@
 import { useContext } from "react";
+
 import { CalendarContext } from "../store/calendarContext";
+
 
 export default function CalendarCells() {
     const { currentMonth, selectedDate, onDateClick, utils } = useContext(CalendarContext);
