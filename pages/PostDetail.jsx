@@ -14,18 +14,18 @@ export default function PostDetail() {
     const { postId } = useParams(); // URL에서 postId 매개변수를 가져옴
     const navigate = useNavigate();
 
-    //게시글이 존재하는지 확인
+    // 게시글이 존재하는지 확인
     const post = posts.find(post => post.id === postId); // posts 배열에서 postId와 일치하는 ID 게시글 찾기
 
-    const [isEditing, setIsEditing] = useState(false); //수정모드
-    //수정시 제목과 내용 관리
+    const [isEditing, setIsEditing] = useState(false); // 수정 모드 상태
+    // 수정 시 제목과 내용 관리
     const [title, setTitle] = useState(post ? post.title : '');
     const [content, setContent] = useState(post ? post.content : '');
 
+    // 댓글 내용 및 수정 상태 관리
     const [commentContent, setCommentContent] = useState('');
     const [isCommentEditing, setIsCommentEditing] = useState(false);
     const [currentCommentId, setCurrentCommentId] = useState(null);
-
 
     // 게시글 삭제
     function handleDeletePost() {
@@ -40,32 +40,34 @@ export default function PostDetail() {
         setIsEditing(false); // 수정 모드 종료
     }
 
-    //댓글 추가
+    // 댓글 추가
     function handleAddNewComment(event) {
         event.preventDefault();
         const newComment = {
-            id: Math.random().toString(),
+            id: Math.random().toString(), // 댓글 ID 생성
             content: commentContent,
         };
         handleAddComment(postId, newComment);
-        setCommentContent('');
+        setCommentContent(''); // 댓글 입력 필드 초기화
     }
 
-    //댓글 수정
+    // 댓글 수정
     function handleEditCommentSubmit(event) {
         event.preventDefault();
         handleEditComment(postId, currentCommentId, { content: commentContent });
-        setCommentContent(''); //댓글 입력 필드 초기화
-        setIsCommentEditing(false); //댓글 수정 모드 종료
-        setCurrentCommentId(null); //수정중인 댓글 ID 초기화
+        setCommentContent(''); // 댓글 입력 필드 초기화
+        setIsCommentEditing(false); // 댓글 수정 모드 종료
+        setCurrentCommentId(null); // 수정 중인 댓글 ID 초기화
     }
 
+    // 댓글 수정 클릭 시 처리
     function handleEditCommentClick(commentId, content) {
         setIsCommentEditing(true);
         setCurrentCommentId(commentId);
         setCommentContent(content);
     }
 
+    // 댓글 수정 취소 시 처리
     function handleCancelEditComment() {
         setIsCommentEditing(false);
         setCurrentCommentId(null);
@@ -104,7 +106,7 @@ export default function PostDetail() {
                         <button type="submit">저장</button>
                         <button type="button" onClick={() => setIsEditing(false)}>취소</button>
                     </form>
-                ) : ( // 수정 중 아님
+                ) : ( // 수정 중이 아닐 때
                     <>
                         <div>
                             <h1>{post.title}</h1>
