@@ -1,6 +1,7 @@
 import { useContext, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { BoardContext } from '../store/boardContext';
+
 
 export default function AddPost() {
     const { addPost } = useContext(BoardContext);
@@ -33,6 +34,9 @@ export default function AddPost() {
                         <textarea ref={contentRef} id="content" required />
                     </div>
                     <button type="submit">올리기</button>
+                    <Link to="/board">
+                        <button type="button">돌아가기</button>
+                    </Link>
                 </form>
             </div>
         </>
