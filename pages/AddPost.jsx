@@ -1,6 +1,7 @@
 import { useContext, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BoardContext } from '../store/boardContext';
+import Modal from '../components/Modal';
 
 
 export default function AddPost() {
@@ -23,21 +24,23 @@ export default function AddPost() {
     return (
         <>
             <div>
-                <h1>게시글 작성</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="title">제목</label>
-                        <input ref={titleRef} type="text" id="title" required />
-                    </div>
-                    <div>
-                        <label htmlFor="content">내용</label>
-                        <textarea ref={contentRef} id="content" required />
-                    </div>
-                    <button type="submit">올리기</button>
-                    <Link to="/board">
-                        <button type="button">돌아가기</button>
-                    </Link>
-                </form>
+                <Modal>
+                    <h1>게시글 작성</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="title">제목</label>
+                            <input ref={titleRef} type="text" id="title" required />
+                        </div>
+                        <div>
+                            <label htmlFor="content">내용</label>
+                            <textarea ref={contentRef} id="content" required />
+                        </div>
+                        <button type="submit">올리기</button>
+                        <Link to="/board">
+                            <button type="button">돌아가기</button>
+                        </Link>
+                    </form>
+                </Modal>
             </div>
         </>
     );
