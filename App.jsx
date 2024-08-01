@@ -17,7 +17,8 @@ import DarkModeProvider from './store/darkModeContext.jsx';
 import CalendarProvider from './store/calendarContext';
 import BoardContextProvider from './store/boardContext.jsx';
 
-import { tokenLoader } from './util/auth.js';
+import { checkAuthLoader, tokenLoader } from './util/auth';
+
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,12 @@ const router = createBrowserRouter([
     loader: tokenLoader, //로컬저장소 살펴보고 토큰추출 로그아웃하면 재평가 후 토큰 삭제
     children: [
       { index: true, element: <Home /> }, //path: '/'
-      { path: '/todo', element: <Todo /> },
-      { path: '/insert', element: <Insert /> },
-      { path: '/calendar', element: <Calendar /> },
-      { path: '/board', element: <Board /> },
-      { path: '/addpost', element: <AddPost /> },
-      { path: '/board/:postId', element: <PostDetail /> },
+      { path: '/todo', element: <Todo />, loader: checkAuthLoader, }, //그냥 접근 방지. 라우트 보호
+      { path: '/insert', element: <Insert />, loader: checkAuthLoader, },
+      { path: '/calendar', element: <Calendar />, loader: checkAuthLoader, },
+      { path: '/board', element: <Board />, loader: checkAuthLoader, },
+      { path: '/addpost', element: <AddPost />, loader: checkAuthLoader, },
+      { path: '/board/:postId', element: <PostDetail />, loader: checkAuthLoader, },
       {
         path: 'auth',
         element: <AuthenticationPage />,
