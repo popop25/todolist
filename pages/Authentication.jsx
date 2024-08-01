@@ -21,7 +21,7 @@ export async function action({ request }) {
 
     //폼 데이터 추출. authData 객체에 이메일과 비밀번호 저장
     const data = await request.formData();
-    const authData = {
+    const authData = {  
         email: data.get('email'),
         password: data.get('password'),
     };

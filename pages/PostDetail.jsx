@@ -76,72 +76,132 @@ export default function PostDetail() {
 
     // 게시글 없음
     if (!post) {
-        return <p>게시글을 찾을 수 없습니다.</p>;
+        return <p className="text-center text-red-500">게시글을 찾을 수 없습니다.</p>;
     }
 
     return (
-        <>
-            <div>
-                {isEditing ? ( // 수정 중일 때
-                    <form onSubmit={handleEditPost}>
-                        <div>
-                            <label htmlFor="title">제목</label>
-                            <input
-                                type="text"
-                                id="title"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)} // 제목 변경
-                                required
-                            />
+        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+            {isEditing ? ( // 수정 중일 때
+                <form onSubmit={handleEditPost} className="space-y-4">
+                    <div>
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-700">제목</label>
+                        <input
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)} // 제목 변경
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="content" className="block text-sm font-medium text-gray-700">내용</label>
+                        <textarea
+                            id="content"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)} // 내용 변경
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                    </div>
+                    <div className="flex space-x-4">
+                        <button
+                            type="submit"
+                            className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                        >
+                            저장
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setIsEditing(false)}
+                            className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75"
+                        >
+                            취소
+                        </button>
+                    </div>
+                </form>
+            ) : ( // 수정 중이 아닐 때
+                <>
+                    <div className="mb-6">
+                        <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+                        <p className="text-gray-700">{post.content}</p>
+                        <div className="mt-4 space-x-4">
+                            <button
+                                onClick={() => setIsEditing(true)}
+                                className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                            >
+                                수정
+                            </button>
+                            <button
+                                onClick={handleDeletePost}
+                                className="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75"
+                            >
+                                삭제
+                            </button>
                         </div>
-                        <div>
-                            <label htmlFor="content">내용</label>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold mb-4">댓글</h2>
+                        <form
+                            onSubmit={isCommentEditing ? handleEditCommentSubmit : handleAddNewComment}
+                            className="space-y-4"
+                        >
                             <textarea
-                                id="content"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)} // 내용 변경
+                                value={commentContent}
+                                onChange={(e) => setCommentContent(e.target.value)}
                                 required
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
-                        </div>
-                        <button type="submit">저장</button>
-                        <button type="button" onClick={() => setIsEditing(false)}>취소</button>
-                    </form>
-                ) : ( // 수정 중이 아닐 때
-                    <>
-                        <div>
-                            <h1>{post.title}</h1>
-                            <p>{post.content}</p>
-                            <button onClick={() => setIsEditing(true)}>수정</button>
-                            <button onClick={handleDeletePost}>삭제</button>
-                        </div>
-                        <div>
-                            <h2>댓글</h2>
-                            <form onSubmit={isCommentEditing ? handleEditCommentSubmit : handleAddNewComment}>
-                                <textarea
-                                    value={commentContent}
-                                    onChange={(e) => setCommentContent(e.target.value)}
-                                    required
-                                />
-                                <button type="submit">{isCommentEditing ? '수정' : '추가'}</button>
-                                {isCommentEditing && <button type="button" onClick={handleCancelEditComment}>취소</button>}
-                                <Link to="/board">
-                                    <button type="button">돌아가기</button>
-                                </Link>
-                            </form>
-
-                            <ul>
-                                {post.comments.map((comment) => (
-                                    <li key={comment.id}>
-                                        <p>{comment.content}</p>
-                                        <button onClick={() => handleEditCommentClick(comment.id, comment.content)}>수정</button>
-                                        <button onClick={() => handleDeleteComment(postId, comment.id)}>삭제</button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </>
-                )}
-            </div>
-        </>
+                            <div className="flex space-x-4">
+                                <button
+                                    type="submit"
+                                    className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                                >
+                                    {isCommentEditing ? '수정' : '추가'}
+                                </button>
+                                {isCommentEditing && (
+                                    <button
+                                        type="button"
+                                        onClick={handleCancelEditComment}
+                                        className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75"
+                                    >
+                                        취소
+                                    </button>
+                                )}
+                            </div>
+                            <Link to="/board">
+                                <button
+                                    type="button"
+                                    className="py-2 px-4 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75"
+                                >
+                                    돌아가기
+                                </button>
+                            </Link>
+                        </form>
+                        <ul className="mt-4 space-y-2">
+                            {post.comments.map((comment) => (
+                                <li key={comment.id} className="bg-gray-100 p-4 rounded-lg shadow-md">
+                                    <p className="text-gray-800">{comment.content}</p>
+                                    <div className="mt-2 space-x-4">
+                                        <button
+                                            onClick={() => handleEditCommentClick(comment.id, comment.content)}
+                                            className="py-1 px-3 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-75"
+                                        >
+                                            수정
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteComment(postId, comment.id)}
+                                            className="py-1 px-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75"
+                                        >
+                                            삭제
+                                        </button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </>
+            )}
+        </div>
     );
 }
